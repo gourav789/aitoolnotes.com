@@ -157,6 +157,15 @@ function show(el) {
   if (el === courseState) el.style.display = "block";
 }
 
+// ---- TEMPORARY PREVIEW MODE (for Razorpay review) ----
+// Open course.html?preview=1 to see the full course without login/payment.
+// Remove this block after Razorpay approval to re-lock the page.
+const PREVIEW_MODE = new URLSearchParams(location.search).get("preview") === "1";
+if (PREVIEW_MODE) {
+  show(courseState);
+  logoutBtn.style.display = "none";
+} else {
+
 onAuthStateChanged(auth, async (user) => {
   if (!user) { show(loginState); logoutBtn.style.display = "none"; return; }
 
@@ -177,6 +186,8 @@ onAuthStateChanged(auth, async (user) => {
     show(lockedState);
   }
 });
+
+} // end of else (non-preview mode)
 
 logoutBtn.addEventListener("click", async () => {
   await signOut(auth);
