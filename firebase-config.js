@@ -21,14 +21,14 @@ import {
   setDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// ⚠️ REPLACE THESE with your aitoolnotes Firebase project values:
+// aitoolnotes.com Firebase project (public keys — safe to expose):
 const firebaseConfig = {
-  apiKey: "REPLACE_WITH_YOUR_API_KEY",
-  authDomain: "REPLACE_PROJECT.firebaseapp.com",
-  projectId: "REPLACE_PROJECT_ID",
-  storageBucket: "REPLACE_PROJECT.appspot.com",
-  messagingSenderId: "REPLACE_SENDER_ID",
-  appId: "REPLACE_APP_ID"
+  apiKey: "AIzaSyBI4K5-f7SkD890GdaopXbsrAsua0YOcts",
+  authDomain: "aitoolnotes-com-4f83b.firebaseapp.com",
+  projectId: "aitoolnotes-com-4f83b",
+  storageBucket: "aitoolnotes-com-4f83b.firebasestorage.app",
+  messagingSenderId: "281314731700",
+  appId: "1:281314731700:web:bc394fff3c6388d804d9e1"
 };
 
 const app = initializeApp(firebaseConfig);
