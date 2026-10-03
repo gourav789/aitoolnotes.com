@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact Us — AI Tool Notes</title>
+<meta name="description" content="Contact AI Tool Notes for support, questions or help." />
+<link rel="stylesheet" href="styles.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" />
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html"><span class="brand-badge">AI</span> AI Tool Notes</a>
+    <nav class="nav-links">
+      <a href="index.html#courses">Courses</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="course.html">My Course</a>
+    </nav>
+    <a class="btn btn-buy btn-sm" href="index.html#pricing">Buy ₹499</a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Contact Us</h1>
+    <p>Have a question or need help? We're here for you.</p>
+  </div>
+</section>
+
+<div class="legal">
+  <p>If you have any question related to the course, payment, or access, please reach out using the details below. We try to respond as quickly as possible.</p>
+
+  <h2>Reach Us</h2>
+  <ul>
+    <li>📧 <b>Email:</b> <a href="mailto:gsrseo81@gmail.com">gsrseo81@gmail.com</a></li>
+    <li>🕒 <b>Support Hours:</b> Monday – Saturday, 10:00 AM – 7:00 PM (IST)</li>
+  </ul>
+
+  <h2>Payment / Access Help</h2>
+  <p>If you have made a payment but your course has not unlocked, please email us with your <b>payment ID</b> and <b>registered email</b>. We will check your access and fix it right away.</p>
+
+  <h2>Response Time</h2>
+  <p>We usually reply within <b>24–48 working hours</b>. It may take a little longer on weekends and holidays.</p>
+
+  <p class="updated">Last updated: <span id="d"></span></p>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-bottom" style="border:none;margin:0;padding:0;">
+      <span>© <span id="yr"></span> AI Tool Notes. All rights reserved.</span>
+      <span><a href="index.html" style="color:#cbd5e1;">Home</a></span>
+    </div>
+  </div>
+</footer>
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  document.getElementById('d').textContent = new Date().toLocaleDateString('en-IN', {year:'numeric',month:'long',day:'numeric'});
+</script>
+</body>
+</html>

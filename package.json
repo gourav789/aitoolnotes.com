@@ -1,0 +1,10 @@
+{
+  "name": "aitoolnotes-com",
+  "version": "1.0.0",
+  "private": true,
+  "description": "aitoolnotes.com — AI faceless YouTube course (Hinglish). Learn to build viral AI channels.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  }
+}

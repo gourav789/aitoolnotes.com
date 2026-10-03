@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // users/{uid} — each user document
+    match /users/{uid} {
+
+      // A logged-in user can read ONLY their own document
+      allow read: if request.auth != null && request.auth.uid == uid;
+
+      // A user may create their own doc at signup, but ONLY with paid = false.
+      // (Stops anyone from making themselves paid from the browser.)
+      allow create: if request.auth != null
+                    && request.auth.uid == uid
+                    && request.resource.data.paid == false;
+
+      // Users cannot update/delete their own paid status from the client.
+      // The "paid" flag is set only by the server (verify-payment.js) using
+      // the Admin service account, which bypasses these rules.
+      allow update, delete: if false;
+    }
+  }
+}

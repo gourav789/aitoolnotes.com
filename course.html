@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Course — AI Tool Notes</title>
+<meta name="description" content="Aapke purchase kiye hue AI courses — full videos." />
+<link rel="stylesheet" href="styles.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html"><span class="brand-badge">AI</span> AI Tool Notes</a>
+    <nav class="nav-links">
+      <a href="index.html#courses">Courses</a>
+      <a href="index.html#testimonials">Reviews</a>
+      <a href="index.html#faq">FAQ</a>
+    </nav>
+    <button class="btn btn-ghost btn-sm" id="logoutBtn" style="display:none;">Logout</button>
+  </div>
+</header>
+
+<!-- Loading -->
+<div id="loadingState" class="locked-screen">
+  <div class="locked-box">
+    <div class="lk-ico">⏳</div>
+    <h2>Checking access…</h2>
+    <p style="color:var(--muted);">Ek second ruko.</p>
+  </div>
+</div>
+
+<!-- Not logged in -->
+<div id="loginState" class="locked-screen" style="display:none;">
+  <div class="locked-box">
+    <div class="lk-ico">🔑</div>
+    <h2>Pehle Login Karo</h2>
+    <p style="color:var(--muted);">Apna course dekhne ke liye login karna zaroori hai.</p>
+    <a class="btn btn-primary btn-lg" href="login.html" style="margin-top:12px;">Login / Signup</a>
+  </div>
+</div>
+
+<!-- Logged in but not paid -->
+<div id="lockedState" class="locked-screen" style="display:none;">
+  <div class="locked-box">
+    <div class="lk-ico">🔒</div>
+    <h2>Course Locked Hai</h2>
+    <p style="color:var(--muted);">Aapne abhi tak course kharida nahi hai. Sirf ₹499 mein lifetime access paao.</p>
+    <a class="btn btn-buy btn-lg" href="index.html#pricing" style="margin-top:12px;">🚀 Buy Course — ₹499</a>
+  </div>
+</div>
+
+<!-- Paid: full course content -->
+<div id="courseState" style="display:none;">
+  <section class="page-hero">
+    <div class="container">
+      <h1>🎉 Welcome! Aapka Full Course</h1>
+      <p>Neeche saare courses ke <b>complete videos</b> hain. Lifetime access — kabhi bhi dekho.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div id="flash" class="flash" style="display:none;">✅ Payment successful! Aapka course unlock ho gaya hai.</div>
+
+      <div class="course-grid">
+
+        <div class="course-card">
+          <div class="course-video">
+            <iframe src="https://www.youtube.com/embed/udqhHNoOyPw" title="AI Geography Full Course" allowfullscreen></iframe>
+          </div>
+          <div class="course-body">
+            <span class="course-tag">ChatGPT + Google Flow</span>
+            <h3>AI Geography Videos Se Banao Viral Channel — Full Course</h3>
+            <div class="course-meta">✅ Full tutorial • Step by step</div>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-video">
+            <iframe src="https://www.youtube.com/embed/byLJ5XI1xoY" title="Synthesia AI Tutorial Full Course" allowfullscreen></iframe>
+          </div>
+          <div class="course-body">
+            <span class="course-tag">Synthesia AI</span>
+            <h3>Synthesia AI Tutorial — Text Se Professional Video (Full Course)</h3>
+            <div class="course-meta">✅ Full tutorial • Step by step</div>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-video">
+            <iframe src="https://www.youtube.com/embed/qDLQI5FL8_8" title="Faceless History Channel Full Course" allowfullscreen></iframe>
+          </div>
+          <div class="course-body">
+            <span class="course-tag">NotebookLM + Google Flow</span>
+            <h3>Faceless History Channel Kaise Banaye AI Se — Full Course</h3>
+            <div class="course-meta">✅ Full tutorial • Step by step</div>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-video">
+            <iframe src="https://www.youtube.com/embed/gxWPnSJxi38" title="Seedance 2.5 Alternatives Full Course" allowfullscreen></iframe>
+          </div>
+          <div class="course-body">
+            <span class="course-tag">Free AI Tools</span>
+            <h3>Seedance 2.5 — 4 Best Free Alternatives (Full)</h3>
+            <div class="course-meta">✅ Full tutorial • Step by step</div>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-video">
+            <iframe src="https://www.youtube.com/embed/uGQUuqegsRI" title="CapCut AutoCap Cut Full Course" allowfullscreen></iframe>
+          </div>
+          <div class="course-body">
+            <span class="course-tag">Bonus • CapCut</span>
+            <h3>CapCut Video Editing Ab Hogi Automatic! AutoCap Cut Se Timeline, Zoom & Transitions</h3>
+            <div class="course-meta">🎁 Bonus course</div>
+          </div>
+        </div>
+
+      </div>
+
+      <p style="text-align:center; color:var(--muted); margin-top:30px;">
+        Koi problem ho to email karein: <a href="mailto:gsrseo81@gmail.com">gsrseo81@gmail.com</a>
+      </p>
+    </div>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-bottom" style="border:none; margin:0; padding:0;">
+      <span>© <span id="yr"></span> AI Tool Notes. All rights reserved.</span>
+      <span><a href="index.html" style="color:#cbd5e1;">Home</a></span>
+    </div>
+  </div>
+</footer>
+
+<script type="module">
+import { auth, db, onAuthStateChanged, signOut, doc, getDoc } from "./firebase-config.js";
+
+const loadingState = document.getElementById("loadingState");
+const loginState = document.getElementById("loginState");
+const lockedState = document.getElementById("lockedState");
+const courseState = document.getElementById("courseState");
+const logoutBtn = document.getElementById("logoutBtn");
+const flash = document.getElementById("flash");
+
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+function show(el) {
+  [loadingState, loginState, lockedState, courseState].forEach(x => x.style.display = "none");
+  el.style.display = (el === courseState) ? "block" : "flex";
+  if (el === courseState) el.style.display = "block";
+}
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { show(loginState); logoutBtn.style.display = "none"; return; }
+
+  logoutBtn.style.display = "inline-flex";
+
+  try {
+    const snap = await getDoc(doc(db, "users", user.uid));
+    const paid = snap.exists() && snap.data().paid === true;
+    if (paid) {
+      show(courseState);
+      if (new URLSearchParams(location.search).get("paid") === "1") {
+        flash.style.display = "block";
+      }
+    } else {
+      show(lockedState);
+    }
+  } catch (e) {
+    show(lockedState);
+  }
+});
+
+logoutBtn.addEventListener("click", async () => {
+  await signOut(auth);
+  window.location.href = "index.html";
+});
+</script>
+</body>
+</html>

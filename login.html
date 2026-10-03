@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Login / Signup — AI Tool Notes</title>
+<meta name="description" content="AI Tool Notes mein login ya signup karein — apne courses access karne ke liye." />
+<link rel="stylesheet" href="styles.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html"><span class="brand-badge">AI</span> AI Tool Notes</a>
+    <nav class="nav-links">
+      <a href="index.html#courses">Courses</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="course.html">My Course</a>
+    </nav>
+    <a class="btn btn-buy btn-sm" href="index.html#pricing">Buy ₹499</a>
+  </div>
+</header>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h1 id="authTitle">Login Karo</h1>
+    <p class="sub" id="authSub">Apne courses access karne ke liye login karein.</p>
+
+    <div class="auth-msg" id="authMsg"></div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="aapka@email.com" autocomplete="email" />
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Kam se kam 6 characters" autocomplete="current-password" />
+    </div>
+
+    <button class="btn btn-primary btn-block btn-lg" id="submitBtn">Login</button>
+
+    <div class="auth-switch">
+      <span id="switchText">Naye ho?</span>
+      <button class="muted-link" id="switchBtn">Account banao</button>
+    </div>
+    <div class="auth-switch" style="margin-top:8px;">
+      <button class="muted-link" id="forgotBtn">Password bhool gaye?</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import {
+  auth, db,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  doc, setDoc, getDoc
+} from "./firebase-config.js";
+
+const title = document.getElementById("authTitle");
+const sub = document.getElementById("authSub");
+const msg = document.getElementById("authMsg");
+const emailEl = document.getElementById("email");
+const passEl = document.getElementById("password");
+const submitBtn = document.getElementById("submitBtn");
+const switchText = document.getElementById("switchText");
+const switchBtn = document.getElementById("switchBtn");
+const forgotBtn = document.getElementById("forgotBtn");
+
+let mode = "login"; // or "signup"
+
+function showMsg(text, ok) {
+  msg.textContent = text;
+  msg.className = "auth-msg " + (ok ? "ok" : "err");
+}
+
+function setMode(m) {
+  mode = m;
+  if (m === "login") {
+    title.textContent = "Login Karo";
+    sub.textContent = "Apne courses access karne ke liye login karein.";
+    submitBtn.textContent = "Login";
+    switchText.textContent = "Naye ho?";
+    switchBtn.textContent = "Account banao";
+    passEl.autocomplete = "current-password";
+  } else {
+    title.textContent = "Account Banao";
+    sub.textContent = "Free account banao, phir course kharido.";
+    submitBtn.textContent = "Sign Up";
+    switchText.textContent = "Pehle se account hai?";
+    switchBtn.textContent = "Login karo";
+    passEl.autocomplete = "new-password";
+  }
+  msg.className = "auth-msg";
+}
+
+switchBtn.addEventListener("click", () => setMode(mode === "login" ? "signup" : "login"));
+
+// Already logged in? Go to course page (or back to buy intent)
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const intent = sessionStorage.getItem("intent");
+    if (intent === "buy") {
+      sessionStorage.removeItem("intent");
+      window.location.href = "index.html#pricing";
+    } else {
+      window.location.href = "course.html";
+    }
+  }
+});
+
+submitBtn.addEventListener("click", async () => {
+  const email = emailEl.value.trim();
+  const pass = passEl.value;
+  if (!email || !pass) { showMsg("Email aur password dono bharo.", false); return; }
+  if (pass.length < 6) { showMsg("Password kam se kam 6 characters ka ho.", false); return; }
+
+  submitBtn.disabled = true;
+  const orig = submitBtn.textContent;
+  submitBtn.textContent = "Please wait…";
+
+  try {
+    if (mode === "signup") {
+      const cred = await createUserWithEmailAndPassword(auth, email, pass);
+      // Create user doc with paid:false (rules require this)
+      await setDoc(doc(db, "users", cred.user.uid), {
+        email: email,
+        paid: false,
+        createdAt: Date.now()
+      });
+      showMsg("Account ban gaya! Redirect ho raha hai…", true);
+    } else {
+      await signInWithEmailAndPassword(auth, email, pass);
+      // Ensure a user doc exists (in case signup predates this logic)
+      const ref = doc(db, "users", auth.currentUser.uid);
+      const snap = await getDoc(ref);
+      if (!snap.exists()) {
+        await setDoc(ref, { email: email, paid: false, createdAt: Date.now() });
+      }
+      showMsg("Login ho gaya! Redirect ho raha hai…", true);
+    }
+  } catch (err) {
+    showMsg(friendly(err.code) || err.message, false);
+    submitBtn.disabled = false;
+    submitBtn.textContent = orig;
+  }
+});
+
+forgotBtn.addEventListener("click", async () => {
+  const email = emailEl.value.trim();
+  if (!email) { showMsg("Pehle apna email box mein likho, phir reset dabao.", false); return; }
+  try {
+    await sendPasswordResetEmail(auth, email);
+    showMsg("Password reset link aapke email par bhej diya gaya hai.", true);
+  } catch (err) {
+    showMsg(friendly(err.code) || err.message, false);
+  }
+});
+
+function friendly(code) {
+  const map = {
+    "auth/email-already-in-use": "Ye email pehle se registered hai. Login karo.",
+    "auth/invalid-email": "Email sahi nahi hai.",
+    "auth/weak-password": "Password kamzor hai (6+ characters do).",
+    "auth/user-not-found": "Account nahi mila. Pehle signup karo.",
+    "auth/wrong-password": "Password galat hai.",
+    "auth/invalid-credential": "Email ya password galat hai."
+  };
+  return map[code];
+}
+</script>
+</body>
+</html>
