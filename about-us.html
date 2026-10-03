@@ -12,16 +12,17 @@
 <header class="site-header">
   <div class="container nav">
     <a class="brand" href="index.html"><span class="brand-badge">AI</span> AI Tool Notes</a>
-    <nav class="nav-links">
+    <nav class="nav-links" id="navLinks">
       <a href="index.html#courses">Courses</a>
       <a href="index.html#proof">Earnings</a>
       <a href="index.html#testimonials">Reviews</a>
       <a href="index.html#faq">FAQ</a>
       <a href="course.html">My Course</a>
     </nav>
-    <div style="display:flex; gap:10px;">
+    <div style="display:flex; gap:10px; align-items:center;">
       <a class="btn btn-ghost btn-sm" href="login.html">Login</a>
       <a class="btn btn-buy btn-sm" href="index.html#pricing">Buy ₹499</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
     </div>
   </div>
 </header>
@@ -95,6 +96,7 @@
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
   document.getElementById('d').textContent = new Date().toLocaleDateString('en-IN', {year:'numeric',month:'long',day:'numeric'});
+  (function(){ var t=document.getElementById('navToggle'),n=document.getElementById('navLinks'); if(t&&n){ t.addEventListener('click',function(){n.classList.toggle('open');}); n.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){n.classList.remove('open');});}); } })();
 </script>
 </body>
 </html>

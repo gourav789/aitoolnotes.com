@@ -20,16 +20,17 @@
     <a class="brand" href="index.html">
       <span class="brand-badge">AI</span> AI Tool Notes
     </a>
-    <nav class="nav-links">
+    <nav class="nav-links" id="navLinks">
       <a href="#courses">Courses</a>
       <a href="#proof">Earnings</a>
       <a href="#testimonials">Reviews</a>
       <a href="#faq">FAQ</a>
       <a href="course.html">My Course</a>
     </nav>
-    <div style="display:flex; gap:10px;">
+    <div style="display:flex; gap:10px; align-items:center;">
       <a class="btn btn-ghost btn-sm" href="login.html" id="navAuth">Login</a>
       <a class="btn btn-buy btn-sm" href="#pricing">Buy ₹499</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
     </div>
   </div>
 </header>
@@ -410,6 +411,15 @@
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script type="module" src="app.js"></script>
-<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  (function(){
+    var t = document.getElementById('navToggle'), n = document.getElementById('navLinks');
+    if (t && n) {
+      t.addEventListener('click', function(){ n.classList.toggle('open'); });
+      n.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ n.classList.remove('open'); }); });
+    }
+  })();
+</script>
 </body>
 </html>
