@@ -84,6 +84,10 @@ if (buyBtn) {
             });
             const result = await verifyRes.json();
             if (result.verified && result.dbUpdated) {
+              // Fire Meta Pixel Purchase event (works from index.html, fb.html, anywhere using this flow)
+              if (typeof fbq === "function") {
+                fbq("track", "Purchase", { value: 499.00, currency: "INR" });
+              }
               window.location.href = "course.html?paid=1";
             } else if (result.verified && !result.dbUpdated) {
               alert(result.error || "Payment ho gaya par access set nahi hua. Support se contact karein.");
