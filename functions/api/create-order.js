@@ -20,7 +20,7 @@ export async function onRequestPost(context) {
   }
 
   try {
-    const amountPaise = 1 * 100; // TESTING: ₹1 actual charge (display still shows ₹499). Revert to 499 * 100 after testing.
+    const amountPaise = 499 * 100; // ₹499 in paise
 
     const auth = btoa(`${keyId}:${keySecret}`);
 
